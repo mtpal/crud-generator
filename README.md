@@ -37,6 +37,14 @@ Mtpal\CrudGenerator\Facades\CrudGenerator::class,
 php artisan crud:generate Posts --fields='title#string; content#text; category#select#options={"technology": "Technology", "tips": "Tips", "health": "Health"}' --view-path=admin --controller-namespace=Admin --route-group=admin --form-helper=html
 ```
 
+```
+php artisan crud:generate Items --fields='title#string; description#text' --form-helper=html
+```
+
+```
+php artisan migrate
+```
+
 ## Security
 
 If you discover any security related issues, please email 
@@ -47,9 +55,6 @@ instead of using the issue tracker.
 [Sohel Amin](http://sohelamin.com) :email: [Email Me](mailto:sohelamincse@gmail.com)
 
 ## Credits
-
-- [](https://github.com/mtpal/crud-generator)
-- [All contributors](https://github.com/mtpal/crud-generator/graphs/contributors)
 
 This package is bootstrapped with the help of
 [melihovv/laravel-package-generator](https://github.com/melihovv/laravel-package-generator).
