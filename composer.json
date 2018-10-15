@@ -9,8 +9,9 @@
   "type": "library",
   "authors": [
     {
-      "name": "",
-      "email": ""
+      "name": "Sohel Amin",
+      "email": "sohelamincse@gmail.com",
+      "homepage": "http://www.appzcoder.com"
     }
   ],
   "require": {
@@ -49,6 +50,5 @@
     "sort-packages": true,
     "optimize-autoloader": true
   },
-  "minimum-stability": "dev",
-    "prefer-stable": true
+  "minimum-stability": "dev"
 }
