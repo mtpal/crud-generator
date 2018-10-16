@@ -100,7 +100,8 @@ class DummyClass extends Controller
         ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
         ${{crudNameSingular}}->update($requestData);
 
-        return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} updated!');
+        //return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} updated!');
+        return redirect('{{routeGroup}}{{viewName}}'.${{crudNameSingular}}->id.'/edit')->with('flash_message', 'Post updated!');
     }
 
     /**

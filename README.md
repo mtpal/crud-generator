@@ -33,12 +33,19 @@ Mtpal\CrudGenerator\Facades\CrudGenerator::class,
 
 ### CRUD Command
 
-```
-php artisan crud:generate Posts --fields='title#string; content#text; category#select#options={"technology": "Technology", "tips": "Tips", "health": "Health"}' --view-path=admin --controller-namespace=Admin --route-group=admin --form-helper=html
-```
+With admin directory just add admin middleware, guard etc ..... in the controllers or routes
 
 ```
-php artisan crud:generate Items --fields='title#string; description#text' --form-helper=html
+php artisan crud:generate Posts --fields='title#string; content#text; category#select#options={"technology": "Technology", "tips": "Tips", "health": "Health"}' --view-path=admin --controller-namespace=Admin --route-group=admin --form-helper=html --validations='title#required'
+```
+```
+php artisan migrate
+```
+
+Without any admin directory
+
+```
+php artisan crud:generate Items --fields='title#string; description#text' --form-helper=html --validations='title#required'
 ```
 
 ```

@@ -137,7 +137,7 @@ class CrudApiControllerCommand extends GeneratorCommand
 
         return $this;
     }
-
+ 
     /**
      * Replace the crudNameSingular for the given stub.
      *

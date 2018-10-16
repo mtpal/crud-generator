@@ -66,6 +66,7 @@ class CrudCommand extends Command
         $modelName = str_singular($name);
         $migrationName = str_plural(snake_case($name));
         $tableName = $migrationName;
+        $this->createRequest(); //create custom request
 
         $routeGroup = $this->option('route-group');
         $this->routeName = ($routeGroup) ? $routeGroup . '/' . snake_case($name, '-') : snake_case($name, '-');
@@ -122,12 +123,45 @@ class CrudCommand extends Command
         }
 
         $formHelper = $this->option('form-helper');
-        $softDeletes = $this->option('soft-deletes');
+        $softDeletes = $this->option('soft-deletes'); 
 
-        $this->call('crud:controller', ['name' => $controllerNamespace . $name . 'Controller', '--crud-name' => $name, '--model-name' => $modelName, '--model-namespace' => $modelNamespace, '--view-path' => $viewPath, '--route-group' => $routeGroup, '--pagination' => $perPage, '--fields' => $fields, '--validations' => $validations]);
-        $this->call('crud:model', ['name' => $modelNamespace . $modelName, '--fillable' => $fillable, '--table' => $tableName, '--pk' => $primaryKey, '--relationships' => $relationships, '--soft-deletes' => $softDeletes]);
-        $this->call('crud:migration', ['name' => $migrationName, '--schema' => $migrationFields, '--pk' => $primaryKey, '--indexes' => $indexes, '--foreign-keys' => $foreignKeys, '--soft-deletes' => $softDeletes]);
-        $this->call('crud:view', ['name' => $name, '--fields' => $fields, '--validations' => $validations, '--view-path' => $viewPath, '--route-group' => $routeGroup, '--localize' => $localize, '--pk' => $primaryKey, '--form-helper' => $formHelper]);
+        $this->call('crud:controller', ['name' => $controllerNamespace . $name . 'Controller',
+                                        '--crud-name' => $name,
+                                        '--model-name' => $modelName,
+                                        '--model-namespace' => $modelNamespace,
+                                        '--view-path' => $viewPath, 
+                                        '--route-group' => $routeGroup, 
+                                        '--pagination' => $perPage, 
+                                        '--fields' => $fields, 
+                                        '--validations' => $validations
+                                        ]);
+
+        $this->call('crud:model', [ 'name' => $modelNamespace . $modelName, 
+                                    '--fillable' => $fillable, 
+                                    '--table' => $tableName, 
+                                    '--pk' => $primaryKey, 
+                                    '--relationships' => $relationships, 
+                                    '--soft-deletes' => $softDeletes
+                                    ]);
+
+        $this->call('crud:migration', [ 'name' => $migrationName, 
+                                        '--schema' => $migrationFields, 
+                                        '--pk' => $primaryKey, 
+                                        '--indexes' => $indexes, 
+                                        '--foreign-keys' => $foreignKeys, 
+                                        '--soft-deletes' => $softDeletes 
+                                        ]);
+
+        $this->call('crud:view', ['name' => $name, 
+                                  '--fields' => $fields, 
+                                  '--validations' => $validations, 
+                                  '--view-path' => $viewPath, 
+                                  '--route-group' => $routeGroup, 
+                                  '--localize' => $localize, 
+                                  '--pk' => $primaryKey, 
+                                  '--form-helper' => $formHelper
+                                ]);
+      
         if ($localize == 'yes') {
             $this->call('crud:lang', ['name' => $name, '--fields' => $fields, '--locales' => $locales]);
         }
@@ -155,6 +189,16 @@ class CrudCommand extends Command
                 $this->info('Unable to add the route to ' . $routeFile);
             }
         }
+    }
+
+
+    protected function createRequest()
+    {
+       $request = $this->argument('name');
+
+        $this->call('make:request', [
+            'name' => "{$request}Request"
+        ]);
     }
 
     /**
